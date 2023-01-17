@@ -24,7 +24,7 @@ public class CarroService {
         Carro nuevoCarro = carroRepository.save(carro);
         return nuevoCarro;
     }
-
+    //obtiene todos los carros por el id del usuario
     public List<Carro> byUsuarioId(int usuarioId){
         return carroRepository.findByUsuarioId(usuarioId);
     }
