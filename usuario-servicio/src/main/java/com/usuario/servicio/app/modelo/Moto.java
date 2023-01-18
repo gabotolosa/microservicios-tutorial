@@ -2,7 +2,7 @@ package com.usuario.servicio.app.modelo;
 
 public class Moto {
     private String marca;
-    private String model;
+    private String modelo;
     private int usuarioId;
 
     public String getMarca() {
@@ -13,12 +13,12 @@ public class Moto {
         this.marca = marca;
     }
 
-    public String getModel() {
-        return model;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public int getUsuarioId() {
