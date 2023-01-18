@@ -29,6 +29,28 @@ public class UsuarioService {
     @Autowired
     private MotoFeignClient motoFeignClient;
 
+    //RestTemplate ->
+    //obtener listado de los carro por id
+    public List<Carro> getCarros1(int usuarioId){
+        List<Carro> carros = restTemplate
+                .getForObject("http://localhost:8002/carro/usuario/" + usuarioId, List.class);
+        return carros;
+    }
+
+    public List<Moto> getMotos1(int usuarioId){
+        List<Moto> motos = restTemplate
+                .getForObject("http://localhost:8003/moto/usuario/" + usuarioId, List.class);
+        return motos;
+    }
+
+
+    //guardar nuevo carro con feignclient
+    public Carro saveCarro1(int usuarioId, Carro carro){
+        carro.setUsuarioId(usuarioId);
+        Carro nuevoCarro = carroFeignClient.save(carro);
+        return nuevoCarro;
+    }
+
     //obtener todos los usuarios
     public List<Usuario> getAll(){
         return usuarioRepository.findAll();
