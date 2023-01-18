@@ -1,6 +1,7 @@
 package com.usuario.servicio.app.service;
 
 import com.usuario.servicio.app.entity.Usuario;
+import com.usuario.servicio.app.feignClients.CarroFeignClient;
 import com.usuario.servicio.app.modelo.Carro;
 import com.usuario.servicio.app.modelo.Moto;
 import com.usuario.servicio.app.repository.UsuarioRepository;
@@ -19,6 +20,10 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private CarroFeignClient carroFeignClient;
+
+    //RestTemplate ->
     //obtener listado de los carro por id
     public List<Carro> getCarros(int usuarioId){
         List<Carro> carros = restTemplate
@@ -28,8 +33,15 @@ public class UsuarioService {
 
     public List<Moto> getMotos(int usuarioId){
         List<Moto> motos = restTemplate
-                .getForObject("http://localhost:2003/moto/usuario/" + usuarioId, List.class);
+                .getForObject("http://localhost:8003/moto/usuario/" + usuarioId, List.class);
         return motos;
+    }
+
+    //guardar nuevo carro con feignclient
+    public Carro saveCarro(int usuarioId, Carro carro){
+        carro.setUsuarioId(usuarioId);
+        Carro nuevoCarro = carroFeignClient.save(carro);
+        return nuevoCarro;
     }
 
     //obtener todos los usuarios

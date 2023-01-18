@@ -1,6 +1,7 @@
 package com.usuario.servicio.app.controller;
 
 import com.usuario.servicio.app.entity.Usuario;
+import com.usuario.servicio.app.feignClients.CarroFeignClient;
 import com.usuario.servicio.app.modelo.Carro;
 import com.usuario.servicio.app.modelo.Moto;
 import com.usuario.servicio.app.service.UsuarioService;
@@ -58,5 +59,11 @@ public class UsuarioController {
         }
         List<Moto> motos = usuarioService.getMotos(id);
         return ResponseEntity.ok(motos);
+    }
+
+    @PostMapping("/carro/{usuarioId}")
+    public ResponseEntity<Carro> guardarCarro(@PathVariable("usuarioId") int usuarioId, @RequestBody Carro carro){
+        Carro nuevoCarro = usuarioService.saveCarro(usuarioId, carro);
+        return ResponseEntity.ok(nuevoCarro);
     }
 }
